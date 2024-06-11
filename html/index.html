@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+    <link rel="stylesheet" href="../ccs/style.css" />
+    <script src="../js/scripts.js" defer></script>
+  </head>
+  <body>
+    <div id="entirePage">
+      <header>
+        <div class="headerContainer">
+          <img
+            id="gifPlayer"
+            class="backGrnVid"
+            src="../Media/VideoHedearNumer1.gif"
+          />
+          <div class="headerNavigation">
+            <div class="headerBranding">
+              <div class="headerLogo">
+                <section class="logoBrand">
+                  <a href="#">
+                    <img src="https://picsum.photos/50" alt="Company Logo" />
+                  </a>
+                </section>
+              </div>
+              <div class="headerCompanyName">
+                <p>CarPol</p>
+              </div>
+            </div>
+            <div class="headerInfo">
+              <span class="contNumb">
+                <img
+                  class="headerInfoPhone"
+                  src="../Media/phone-icon.png"
+                  alt="Telefon Icon"
+                />
+                <a>111 111 111</a>
+              </span>
+              <div class="workTime">
+                <p>
+                  <span class="workDays">Pn - PT</span>
+                  <span class="workDaysLine"></span>
+                  <span class="workHours">8 - 16</span>
+                </p>
+                <p>
+                  <span class="workDays">Sobota</span>
+                  <span class="workDaysLine"></span>
+                  <span class="workHours">9 - 15</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div class="shopScreen">
+          <div class="carWindowBig">
+            <div class="carWinBigCon">
+              <div class="carWinBigConSum">
+                <h2>Car Details</h2>
+                <div class="carWinBigConSumCar"></div>
+                <div class="totalCost">Total Cost:0</div>
+              </div>
+              <div class="carWinBigConSet">
+                <div class="carWinBigConSetLeft">
+                  <div class="radioButtonsDiv">
+                    <form>
+                      <label>
+                        <input
+                          type="radio"
+                          class="infoInput radioOption"
+                          name="info3"
+                          value="Leasing"
+                          class="styledRadio"
+                        />Leasing <br />
+                      </label>
+                      <label>
+                        <input
+                          type="radio"
+                          class="infoInput radioOption"
+                          name="info3"
+                          value="Leasing"
+                          class="styledRadio"
+                        />Gotówka <br />
+                      </label>
+                    </form>
+                  </div>
+
+                  <div class="nameSurnameDiv">
+                    <form>
+                      <label for="name">name:</label>
+                      <input
+                        type="text"
+                        id="info1"
+                        name="name"
+                        class="nameInput"
+                      />
+                    </form>
+                    <form>
+                      <label for="name">surname:</label>
+                      <input
+                        type="text"
+                        id="info2"
+                        name="surname"
+                        class="surnameInput"
+                      />
+                    </form>
+                  </div>
+                  <div class="accesoriesDiv">
+                    <h3>Accessories</h3>
+                    <form>
+                      <label>
+                        <input
+                          type="checkbox"
+                          class="infoInput checkboxOption"
+                          name="CarAccesories"
+                          data-percent="1"
+                        />SunShade <br />
+                      </label>
+                      <label>
+                        <input
+                          type="checkbox"
+                          class="infoInput checkboxOption"
+                          name="CarAccesories"
+                          data-percent="2"
+                        />Seat Covers <br />
+                      </label>
+                      <label>
+                        <input
+                          type="checkbox"
+                          class="infoInput checkboxOption"
+                          name="CarAccesories"
+                          data-percent="3"
+                        />CargoNet <br />
+                      </label>
+                      <label>
+                        <input
+                          type="checkbox"
+                          class="infoInput checkboxOption"
+                          name="CarAccesories"
+                          data-percent="4"
+                        />Fire Extinguisher <br />
+                      </label>
+                    </form>
+                  </div>
+                </div>
+                <div class="carWinBigConCal">
+                  <div class="carWinBigConCalCon">
+                    <div class="carWinBigConCalHeader">
+                      <div class="navButtonContainer">
+                        <button id="prev" class="navButton">Back</button>
+                      </div>
+                      <div class="monthYearContainer">
+                        <div id="month-year" class="month-year">June 2024</div>
+                      </div>
+                      <div class="navButtonContainer">
+                        <button id="next" class="navButton">Next</button>
+                      </div>
+                    </div>
+                    <div class="days">
+                      <div class="day">Sun</div>
+                      <div class="day">Mon</div>
+                      <div class="day">Tue</div>
+                      <div class="day">Wed</div>
+                      <div class="day">Thu</div>
+                      <div class="day">Fri</div>
+                      <div class="day">Sat</div>
+                    </div>
+                    <div id="dates" class="dates"></div>
+                  </div>
+                </div>
+                <button id="closeBtn">Powrót</button>
+              </div>
+              <div class="submitButtonDiv">
+                <button class="submitButton">Accept</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <div class="footerContainer">
+          <div class="footerBottom">
+            <div class="footerMostBottom">
+              <p class="footerCoopyright">
+                <span> © 2024 CarPol </span>
+              </p>
+            </div>
+            <div class="footerButton">
+              <button class="btn">Do góry</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
