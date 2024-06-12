@@ -1,5 +1,3 @@
-// Array
-
 const cars = [
   {
     brand: "Toyota",
@@ -183,8 +181,6 @@ const cars = [
   },
 ];
 
-//Create card Functio
-
 function createCarCard(car) {
   const carWindow = document.createElement("div");
   carWindow.classList.add("carWindow");
@@ -236,8 +232,6 @@ function createCarCard(car) {
 
   return carWindow;
 }
-
-// Calendar
 
 document.addEventListener("DOMContentLoaded", () => {
   const monthYear = document.getElementById("month-year");
@@ -326,8 +320,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCalendar();
 });
 
-// close, open, get info submitt button
-
 document.addEventListener("DOMContentLoaded", () => {
   const enlargedObject = document.querySelector(".carWindowBig");
   const carInfoContainer = document.querySelector(".carWinBigConSumCar");
@@ -354,7 +346,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const carInfo = carWindow.querySelector(".carWinDes").innerHTML;
       carInfoContainer.innerHTML = carInfo;
 
-      // Assign accessoryCheckboxes
       accessoryCheckboxes = document.querySelectorAll(".checkboxOption");
       accessoryCheckboxes.forEach((checkbox) => {
         checkbox.checked = false;
@@ -438,8 +429,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Update cost
-
 function updateTotalCost() {
   const carInfoContainer = document.querySelector(".carWinBigConSumCar");
   const accessoryCheckboxes = document.querySelectorAll(".checkboxOption");
@@ -473,8 +462,6 @@ accessoryCheckboxes.forEach((checkbox) => {
 
 document.addEventListener("DOMContentLoaded", updateTotalCost);
 
-// Gif displayer loop
-
 document.addEventListener("DOMContentLoaded", function () {
   function initializeGifPlayer() {
     const gifs = [
@@ -503,8 +490,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   initializeGifPlayer();
 });
-
-// Scroll to top
 
 document.addEventListener("DOMContentLoaded", function () {
   const scrollToTopBtn = document.querySelector(".btn");
