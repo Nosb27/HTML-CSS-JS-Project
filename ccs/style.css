@@ -26,12 +26,6 @@ img {
   z-index: 11;
 }
 
-.headerVidCont {
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-}
-
 .backGrnVid {
   position: absolute;
   object-fit: cover;
@@ -63,18 +57,18 @@ img {
   transform: translateY(-50%);
   min-width: 10vw;
   max-width: 20vw;
-  min-height: 10vh;
-  max-height: 20vh;
+  min-height: 10vw;
+  max-height: 20vw;
 }
 
 .headerCompanyName {
   position: relative;
   display: flex;
   align-items: center;
-  padding-left: 2vh;
+  padding-left: 2vw;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 25px;
+  font-size: 5vw;
   min-width: 5vw;
   max-width: 15vw;
   min-height: 5vh;
@@ -82,8 +76,9 @@ img {
 }
 
 .headerInfo {
-  margin-top: 2vh;
+  margin-top: 2vw;
   padding-right: 4vw;
+  font-size: 3vw;
   display: grid;
   justify-content: flex-end;
   text-shadow: 1px -1px 0 blue;
@@ -108,28 +103,6 @@ img {
   grid-column: span 2;
 }
 
-.headerNavList {
-  display: flex;
-  justify-content: end;
-  padding-right: 4vw;
-}
-
-.headerNavMenu {
-  border: transparent;
-}
-
-.mainMenuNavLi {
-  display: inline-block;
-  padding-left: 5vw;
-  color: white;
-  text-shadow: 1px -1px 0 blue;
-}
-
-.zestawienie {
-  display: flex;
-  justify-content: right;
-}
-
 main {
   padding: 10px;
 }
@@ -152,7 +125,8 @@ main {
   max-width: 40vw;
   min-height: 40vh;
   max-height: 60vh;
-  border: 1vh solid silver;
+  font-size: 4vh;
+  border: 1vw solid silver;
   background-color: rgb(132, 132, 153);
   color: black;
   vertical-align: top;
@@ -178,7 +152,7 @@ main {
   position: fixed;
   grid-template-columns: unset;
   grid-template-rows: unset;
-  top: 7vh;
+  top: 6%;
   left: 7vw;
   width: 84vw;
   height: 84vh;
@@ -197,38 +171,59 @@ main {
 }
 
 .carWinBigConSum {
-  width: 35%;
+  width: 40%;
   height: 80%;
   border-right: 1px solid black;
-  padding: 10px;
+  padding: 2vw;
   box-sizing: border-box;
+  font-size: 3vw;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1600px) {
+  .carWinBigConSum {
+    font-size: 4vh;
+  }
+}
+
+@media screen and (min-width: 1601px) {
+  .carWinBigConSum {
+    font-size: 5vh;
+  }
+}
+
+.nameInput,
+.surnameInput {
+  display: block;
+  width: 20vw;
+  height: 3vh;
+  font-size: 3vh;
+}
+
+.dateInput {
+  height: 3vh;
+  width: 20vw;
+  font-size: 3vh;
 }
 
 .carWinBigConSet {
-  display: flex;
-  justify-content: space-between;
-  width: 65%;
+  display: grid;
+  width: 60%;
   height: 80%;
-  padding: 10px;
+  padding: 2vw;
   box-sizing: border-box;
+  flex-wrap: wrap;
+  font-size: 3vh;
 }
 
 .carWinBigConSetLeft {
   display: flex;
   flex-direction: column;
-  width: 50%;
 }
 
-.radioButtonsDiv {
-  margin-bottom: 3vh;
-}
-
-.nameSurnameDiv {
-  margin-bottom: 3vh;
-}
-
+.radioButtonsDiv,
+.nameSurnameDiv,
 .accesoriesDiv {
-  margin-bottom: 3vh;
+  margin-bottom: 1vh;
 }
 
 .carWinBigConCal {
@@ -246,72 +241,6 @@ main {
 
 .carWinBigConCalCon {
   border: 2px silver solid;
-}
-
-.carWInBigConCalHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #3f51b5;
-  color: #fff;
-  padding: 5px;
-  font-size: 12px;
-}
-
-.navButton {
-  font-size: 12px;
-  cursor: pointer;
-}
-.navButtonContainer {
-  text-align: center;
-}
-
-.monthYearContainer {
-  text-align: center;
-}
-
-.days {
-  display: flex;
-  justify-content: space-around;
-  background-color: #f0f0f0;
-  padding: 3px 0;
-}
-
-.day,
-.date {
-  width: calc(100% / 7);
-  padding: 6px 3px;
-  text-align: center;
-  border-bottom: 1px solid #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.date {
-  cursor: pointer;
-}
-
-.date:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.date.inactive {
-  color: rgba(0, 0, 0, 0.3);
-  pointer-events: none;
-}
-
-.selected-date {
-  background: #3f51b5;
-  color: #fafafa;
-  border-radius: 50%;
-}
-
-.dates {
-  padding: 10px;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
 }
 
 .submitButtonDiv {
@@ -337,14 +266,33 @@ main {
   background-color: silver;
 }
 
+.input-error {
+  background-color: red;
+  animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    background-color: red;
+  }
+  100% {
+    background-color: initial;
+  }
+}
+
+.closeBtnCon {
+  display: flex;
+  justify-content: right;
+}
+
 #closeBtn {
-  position: absolute;
   background-color: #a6afe1;
   border: silver 3px solid;
-  top: 10px;
-  right: 10px;
+  width: 15vw;
+  height: 5vw;
   cursor: pointer;
   z-index: 111;
+  font-size: 4vh;
 }
 
 #closeBtn:hover {
@@ -358,14 +306,6 @@ footer {
 
 .footerContainer {
   padding: 10px;
-}
-
-.footerPartners {
-  border: 3px dotted blue;
-  float: left;
-  width: 100%;
-  margin-top: 1vh;
-  padding: 1vh;
 }
 
 .footerBottom {

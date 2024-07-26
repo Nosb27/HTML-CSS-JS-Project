@@ -234,93 +234,6 @@ function createCarCard(car) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const monthYear = document.getElementById("month-year");
-  const datesElement = document.getElementById("dates");
-  const prevButton = document.getElementById("prev");
-  const nextButton = document.getElementById("next");
-
-  let currentMonth = new Date().getMonth();
-  let currentYear = new Date().getFullYear();
-  const today = new Date();
-  const minSelectableDate = new Date(today);
-  minSelectableDate.setDate(today.getDate() + 14);
-
-  const renderCalendar = () => {
-    datesElement.innerHTML = "";
-
-    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-    const lastDateOfMonth = new Date(
-      currentYear,
-      currentMonth + 1,
-      0
-    ).getDate();
-    const lastDayOfLastMonth = new Date(currentYear, currentMonth, 0).getDate();
-
-    monthYear.innerHTML = new Date(
-      currentYear,
-      currentMonth
-    ).toLocaleDateString("en-US", {
-      month: "long",
-      year: "numeric",
-    });
-
-    for (let i = firstDayOfMonth; i > 0; i--) {
-      const dateElement = document.createElement("div");
-      dateElement.classList.add("date");
-      dateElement.classList.add("inactive");
-      dateElement.innerText = lastDayOfLastMonth - i + 1;
-      datesElement.appendChild(dateElement);
-    }
-
-    for (let i = 1; i <= lastDateOfMonth; i++) {
-      const dateElement = document.createElement("div");
-      dateElement.classList.add("date");
-      dateElement.innerText = i;
-
-      const date = new Date(currentYear, currentMonth, i);
-      if (date < minSelectableDate) {
-        dateElement.classList.add("inactive");
-      } else {
-        dateElement.addEventListener("click", (e) => {
-          const selected = document.querySelector(".selected-date");
-          if (selected) {
-            selected.classList.remove("selected-date");
-          }
-          e.target.classList.add("selected-date");
-          alert(
-            `You selected ${e.target.innerText}-${
-              currentMonth + 1
-            }-${currentYear}`
-          );
-        });
-      }
-
-      datesElement.appendChild(dateElement);
-    }
-  };
-
-  prevButton.addEventListener("click", () => {
-    currentMonth--;
-    if (currentMonth < 0) {
-      currentMonth = 11;
-      currentYear--;
-    }
-    renderCalendar();
-  });
-
-  nextButton.addEventListener("click", () => {
-    currentMonth++;
-    if (currentMonth > 11) {
-      currentMonth = 0;
-      currentYear++;
-    }
-    renderCalendar();
-  });
-
-  renderCalendar();
-});
-
-document.addEventListener("DOMContentLoaded", () => {
   const enlargedObject = document.querySelector(".carWindowBig");
   const carInfoContainer = document.querySelector(".carWinBigConSumCar");
   let accessoryCheckboxes;
@@ -358,8 +271,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalCostElement = document.querySelector(".totalCost");
     const totalCost = parseFloat(totalCostElement.textContent.split(": ")[1]);
 
+    const radioButtonsDiv = document.querySelector(".radioButtonsDiv");
     const radioButtons = document.querySelectorAll("input[name='info3']");
     let chosenOption;
+
     radioButtons.forEach((radio) => {
       if (radio.checked) {
         chosenOption = radio.value;
@@ -370,27 +285,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const surnameInput = document.getElementById("info2");
     const name = nameInput.value.trim();
     const surname = surnameInput.value.trim();
+    const dateInput = document.querySelector(".dateInput");
+    const chosenDate = dateInput.value.trim();
 
     let isValid = true;
     if (!chosenOption) {
-      alert("Please select an option for leasing or cash payment.");
+      highlightError(radioButtonsDiv);
       isValid = false;
     }
     if (!name.match(/^[a-zA-Z]+$/)) {
-      alert("Please enter a valid name (letters only).");
+      highlightError(nameInput);
       isValid = false;
     }
     if (!surname.match(/^[a-zA-Z]+$/)) {
-      alert("Please enter a valid surname (letters only).");
+      highlightError(surnameInput);
       isValid = false;
     }
 
-    const chosenDateElement = document.querySelector(".selected-date");
-    const chosenDate = chosenDateElement
-      ? chosenDateElement.textContent.trim()
-      : null;
     if (!chosenDate) {
-      alert("Please select a date.");
+      highlightError(dateContainer);
       isValid = false;
     }
 
@@ -402,12 +315,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      console.log("Total Price:", totalCost);
-      console.log("Radio Button Choice:", chosenOption);
-      console.log("Name:", name);
-      console.log("Surname:", surname);
-      console.log("Accessories:", chosenAccessories);
-      console.log("Chosen Date:", chosenDate);
+      const formData = {
+        chosenOption,
+        name,
+        surname,
+        chosenDate,
+        chosenAccessories,
+      };
+      localStorage.setItem("formData", JSON.stringify(formData));
 
       document
         .querySelectorAll('input[type="text"]')
@@ -424,45 +339,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
       closeEnlargedObject();
 
-      alert("Information correct, order accepted");
+      window.location.href = "confirmation.html";
     }
   });
-});
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedFormData = JSON.parse(localStorage.getItem("formData"));
 
-function updateTotalCost() {
-  const carInfoContainer = document.querySelector(".carWinBigConSumCar");
-  const accessoryCheckboxes = document.querySelectorAll(".checkboxOption");
+    if (savedFormData) {
+      const nameInput = document.getElementById("info1");
+      const surnameInput = document.getElementById("info2");
+      const dateInput = document.querySelector(".dateInput");
 
-  const carInfoElement = carInfoContainer.querySelector(
-    ".CarWinDesInf:nth-child(2)"
-  );
-  const carPriceText = carInfoElement
-    ? carInfoElement.textContent.split(": ")[1]
-    : null;
-  const carPrice = carPriceText ? parseFloat(carPriceText) : NaN;
+      nameInput.value = savedFormData.name || "";
+      surnameInput.value = savedFormData.surname || "";
+      dateInput.value = savedFormData.chosenDate || "";
 
-  let totalAccessoryCost = isNaN(carPrice) ? "Pick an accessory" : carPrice; // Set to "Pick an accessory" if car price is NaN
+      const radioButtons = document.querySelectorAll("input[name='info3']");
+      radioButtons.forEach((radio) => {
+        if (radio.value === savedFormData.chosenOption) {
+          radio.checked = true;
+        }
+      });
 
-  accessoryCheckboxes.forEach((cb) => {
-    if (cb.checked && !isNaN(carPrice)) {
-      totalAccessoryCost += carPrice * (parseInt(cb.dataset.percent) / 100);
+      const accessoryCheckboxes = document.querySelectorAll(".checkboxOption");
+      accessoryCheckboxes.forEach((checkbox) => {
+        if (savedFormData.chosenAccessories.includes(checkbox.value)) {
+          checkbox.checked = true;
+        }
+      });
     }
   });
+  const formData = JSON.parse(localStorage.getItem("formData"));
 
-  const totalCostElement = document.querySelector(".totalCost");
-  totalCostElement.textContent = isNaN(totalAccessoryCost)
-    ? "Pick an accessory"
-    : `Total Cost: ${totalAccessoryCost}`;
-}
+  if (formData) {
+    const nameInput = document.getElementById("info1");
+    const surnameInput = document.getElementById("info2");
+    const dateInput = document.querySelector(".dateInput");
+    const radioButtons = document.querySelectorAll("input[name='info3']");
+    const accessoryCheckboxes = document.querySelectorAll(".checkboxOption");
 
-const accessoryCheckboxes = document.querySelectorAll(".checkboxOption");
-accessoryCheckboxes.forEach((checkbox) => {
-  checkbox.addEventListener("change", updateTotalCost);
-});
-
-document.addEventListener("DOMContentLoaded", updateTotalCost);
-
-document.addEventListener("DOMContentLoaded", function () {
+    if (formData.name) nameInput.value = formData.name;
+    if (formData.surname) surnameInput.value = formData.surname;
+    if (formData.chosenDate) dateInput.value = formData.chosenDate;
+    if (formData.chosenOption) {
+      radioButtons.forEach((radio) => {
+        if (radio.value === formData.chosenOption) radio.checked = true;
+      });
+    }
+    if (formData.chosenAccessories) {
+      accessoryCheckboxes.forEach((checkbox) => {
+        if (formData.chosenAccessories.includes(checkbox.value))
+          checkbox.checked = true;
+      });
+    }
+  }
   function initializeGifPlayer() {
     const gifs = [
       "../Media/VideoHedearNumer1.gif",
@@ -489,9 +419,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   initializeGifPlayer();
-});
 
-document.addEventListener("DOMContentLoaded", function () {
   const scrollToTopBtn = document.querySelector(".btn");
 
   scrollToTopBtn.addEventListener("click", function () {
@@ -501,3 +429,58 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+function highlightError(inputElement) {
+  inputElement.classList.add("input-error");
+  setTimeout(() => {
+    inputElement.classList.remove("input-error");
+  }, 5000);
+}
+
+function setDateAttributes() {
+  const today = new Date();
+  const forteenDaysFromToday = new Date();
+  forteenDaysFromToday.setDate(today.getDate() + 14);
+
+  const todayStr = today.toISOString().split("T")[0];
+  const twoWeeksStr = forteenDaysFromToday.toISOString().split("T")[0];
+
+  const dateInput = document.querySelector(".dateInput");
+  dateInput.min = todayStr;
+  dateInput.value = twoWeeksStr;
+}
+
+window.onload = setDateAttributes;
+
+function updateTotalCost() {
+  const carInfoContainer = document.querySelector(".carWinBigConSumCar");
+  const accessoryCheckboxes = document.querySelectorAll(".checkboxOption");
+
+  const carInfoElement = carInfoContainer.querySelector(
+    ".CarWinDesInf:nth-child(2)"
+  );
+  const carPriceText = carInfoElement
+    ? carInfoElement.textContent.split(": ")[1]
+    : null;
+  const carPrice = carPriceText ? parseFloat(carPriceText) : NaN;
+
+  let totalAccessoryCost = isNaN(carPrice) ? "Pick an accessory" : carPrice;
+
+  accessoryCheckboxes.forEach((cb) => {
+    if (cb.checked && !isNaN(carPrice)) {
+      totalAccessoryCost += carPrice * (parseInt(cb.dataset.percent) / 100);
+    }
+  });
+
+  const totalCostElement = document.querySelector(".totalCost");
+  totalCostElement.textContent = isNaN(totalAccessoryCost)
+    ? "Pick an accessory"
+    : `Total Cost: ${totalAccessoryCost}`;
+}
+
+const accessoryCheckboxes = document.querySelectorAll(".checkboxOption");
+accessoryCheckboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", updateTotalCost);
+});
+
+document.addEventListener("DOMContentLoaded", updateTotalCost);
